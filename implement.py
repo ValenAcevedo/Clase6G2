@@ -1,4 +1,5 @@
 from sistemaVet import *
+import datetime
 
 def main():
     servicio_hospitalario = sistemaV()
@@ -19,9 +20,9 @@ def main():
             historia = int(input(" ingrese la historia clinica de la mascota: "))
             if servicio_hospitalario.verificarExiste(historia) == False:
                 nombre=input("Ingrese el nombre de la mascota: ")
-                tipo=input("Ingrese el tipo de mascota (felino o canino): ")
+                tipo=int(input("Ingrese el tipo de mascota (felino o canino): "))
                 peso=int(input("Ingrese el peso de la mascota: "))
-                fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
+                fecha=datetime.datetime.now()
                 medicamento=Medicamento()
                 medicamento.asignarNombre(input("Ingrese nombre del medicamento: "))
                 medicamento.asignarDosis(int(input("Ingrese dosis del medicamento: ")))
@@ -29,10 +30,17 @@ def main():
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
                 mas.asignarPeso(peso)
-                mas.asignarTipo(tipo)
                 mas.asignarFecha(fecha)
                 mas.asignarMedicamento(medicamento)
-                servicio_hospitalario.ingresarMascota(mas)
+
+                if tipo==1:
+                    tipo="felino"
+                    mas.asignarTipo(tipo)
+                    servicio_hospitalario.ingresarGato(mas)
+                elif tipo==2:
+                    tipo="canino"
+                    mas.asignarTipo(tipo)
+                    servicio_hospitalario.ingresarPerro
 
             else:
                 print("Ya existe una mascota con el numero de historia clínica ingresado.") 
@@ -42,7 +50,7 @@ def main():
             q = int(input("Ingrese la historia clínica de la mascota: "))
             fecha = servicio_hospitalario.verFechaIngreso(q)
             if fecha != None:  
-                print("La fecha de ingreso de la mascota es: " + fecha)
+                print("La fecha de ingreso de la mascota es: " + fecha.strftime("%x"))
             else:
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
           
